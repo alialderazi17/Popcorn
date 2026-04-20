@@ -3,7 +3,7 @@ Popcorn is a website where you can search for types of media and filter them by 
 ##
 ## Collaborators: [Abeer Rozba](https://github.com/abeer-rozba), [Mohamed Hasan](https://github.com/mohammed-abadi), [Yasmeen Ebrahim](https://github.com/yasmeeneb1999)
 ***
-### ***Technologies Used*** 
+### ***Technologies Used***
 - React
 - MongoDB
 - Express
