@@ -1,6 +1,11 @@
 import { NavLink } from 'react-router-dom'
 
-const Nav = () => {
+const Nav = ({ user, setUser }) => {
+  const logout = () => {
+    localStorage.removeItem('token')
+    setUser(null)
+  }
+
   return (
     <nav>
       <div>
@@ -8,7 +13,12 @@ const Nav = () => {
         <NavLink to="/profile">Profile</NavLink>
         <NavLink to="/watchlist">Watchlist</NavLink>
         <NavLink to="/about">About</NavLink>
-        <NavLink to="/login">Login</NavLink>
+
+        {user ? (
+          <button onClick={logout}>Log out</button>
+        ) : (
+          <NavLink to="/login">Login</NavLink>
+        )}
       </div>
     </nav>
   )
