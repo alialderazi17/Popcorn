@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const BASE_URL = "https://popcorn-be.onrender.com/"
+export const BASE_URL = 'https://popcorn-be.onrender.com/'
 
 const Client = axios.create({ baseURL: BASE_URL })
 

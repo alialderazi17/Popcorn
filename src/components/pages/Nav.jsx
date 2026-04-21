@@ -1,8 +1,8 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom"
 
 const Nav = ({ user, setUser }) => {
   const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem("token")
     setUser(null)
   }
 
@@ -13,6 +13,7 @@ const Nav = ({ user, setUser }) => {
 
         {user && <NavLink to="/profile">Profile</NavLink>}
         {user && <NavLink to="/watchlist">Watchlist</NavLink>}
+        {user && <NavLink to="/media"></NavLink>}
 
         <NavLink to="/about">About</NavLink>
 
