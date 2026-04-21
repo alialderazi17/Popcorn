@@ -3,6 +3,7 @@ import Client from "../services/api"
 
 const MediaForm = ({ user, mediaId, initialData }) => {
   const [showForm, setShowForm] = useState(false)
+
   const [formData, setFormData] = useState({
     status: initialData?.status || "plan to watch",
     userRating: initialData?.userRating || "",
@@ -37,9 +38,16 @@ const MediaForm = ({ user, mediaId, initialData }) => {
         description: formData.description,
       }
 
-      const res = await Client.post(`/watchlist/${currentUserId}`, payload)
+      await Client.post(`/watchlist/${currentUserId}`, payload)
 
       alert("Updated your list!")
+
+      // Reset form
+      setFormData({
+        status: "plan to watch",
+        userRating: "",
+        description: "",
+      })
       setShowForm(false)
     } catch (err) {
       const errorMsg = err.response?.data?.message || "Error adding item"
@@ -63,6 +71,7 @@ const MediaForm = ({ user, mediaId, initialData }) => {
           <div className="modal-content">
             <form onSubmit={handleSubmit} className="media-form">
               <h2>Add to list</h2>
+
               <div className="form-section">
                 <label htmlFor="status">Status</label>
                 <select
@@ -78,6 +87,7 @@ const MediaForm = ({ user, mediaId, initialData }) => {
                   <option value="plan to watch">Plan to Watch</option>
                 </select>
               </div>
+
               <div className="form-section">
                 <label htmlFor="userRating">Rating (1-10)</label>
                 <div className="rating-input-wrapper">
@@ -94,6 +104,7 @@ const MediaForm = ({ user, mediaId, initialData }) => {
                   <span>/ 10</span>
                 </div>
               </div>
+
               <div className="form-section">
                 <label htmlFor="description">Notes</label>
                 <textarea
@@ -104,6 +115,7 @@ const MediaForm = ({ user, mediaId, initialData }) => {
                   rows="4"
                 />
               </div>
+
               <div className="button-group">
                 <button type="submit" className="submit-btn">
                   Save

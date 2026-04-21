@@ -22,10 +22,10 @@ const App = () => {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const user = await checkSession()
-        setUser(user)
+        const sessionUser = await checkSession()
+        setUser(sessionUser)
       } catch (error) {
-        console.log(error)
+        console.log("No valid session")
       }
     }
     checkUser()
@@ -34,10 +34,17 @@ const App = () => {
   return (
     <>
       <Nav user={user} setUser={setUser} />
-      <div>
+      <div className="main-content">
         <Routes>
+<<<<<<< HEAD
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
+=======
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+>>>>>>> 752c33f0971300dab7ec27fb1d63fdfc7abeae56
 
           <Route
             path='/profile'
@@ -56,6 +63,7 @@ const App = () => {
             }
           />
 
+<<<<<<< HEAD
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login setUser={setUser} />} />
           <Route path='/profile' element={<Profile user={user} />} />
@@ -64,6 +72,11 @@ const App = () => {
           <Route path='/media' element={<Media />} />
           <Route path='/genres' element={<Genre />} />
           <Route path='/genres/:id' element={<GenreDetails />} />
+=======
+          <Route path="/movies/:id" element={<MovieDetails user={user} />} />
+          <Route path="/tv/:id" element={<TvDetails user={user} />} />
+          <Route path="/media" element={<Media />} />
+>>>>>>> 752c33f0971300dab7ec27fb1d63fdfc7abeae56
         </Routes>
       </div>
     </>
