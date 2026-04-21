@@ -41,3 +41,53 @@
   border: none;
   cursor: pointer;
 }
+
+.about-page {
+  background-color: rgb(242, 242, 242);
+}
+.about-description {
+  padding: 20px;
+  text-align: center;
+}
+
+.about-img {
+}
+
+.profile-page {
+}
+
+.description {
+  text-align: center;
+  padding: 100px;
+  border: 2 px solid black;
+  border-radius: 15px;
+  width: 300px;
+  background-color: rgb(219, 219, 219);
+}
+
+.profile-img img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  border: 3px solid black;
+}
+
+.description p {
+  margin-top: 15px;
+  padding: 16px 15px;
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border-radius: 5px;
+}
+
+.description button {
+  margin-top: 15px;
+  padding: 8px 15px;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}
+
+.description button:hover {
+  background: black;
+}
