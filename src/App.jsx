@@ -20,10 +20,10 @@ const App = () => {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const user = await checkSession()
-        setUser(user)
+        const sessionUser = await checkSession()
+        setUser(sessionUser)
       } catch (error) {
-        console.log(error)
+        console.log("No valid session")
       }
     }
     checkUser()
@@ -32,10 +32,13 @@ const App = () => {
   return (
     <>
       <Nav user={user} setUser={setUser} />
-      <div>
+      <div className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+
           <Route
             path="/profile"
             element={
@@ -52,11 +55,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/profile" element={<Profile user={user} />} />
-          <Route path="/movies/:id" element={<MovieDetails />} />
-          <Route path="/tv/:id" element={<TvDetails />} />
+
           <Route path="/movies/:id" element={<MovieDetails user={user} />} />
           <Route path="/tv/:id" element={<TvDetails user={user} />} />
           <Route path="/media" element={<Media />} />

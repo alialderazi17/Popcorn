@@ -10,7 +10,9 @@ const TvDetails = ({ user }) => {
   useEffect(() => {
     const fetchShow = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/media/tv/${id}`)
+        const res = await axios.get(
+          `https://popcorn-be.onrender.com/media/tv/${id}`
+        )
         setShow(res.data)
       } catch (err) {
         console.error(err)
