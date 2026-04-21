@@ -1,26 +1,26 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom'
 
 const Nav = ({ user, setUser }) => {
   const logout = () => {
-    localStorage.removeItem("token")
+    localStorage.removeItem('token')
     setUser(null)
   }
 
   return (
     <nav>
       <div>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to='/'>Home</NavLink>
 
-        {user && <NavLink to="/profile">Profile</NavLink>}
-        {user && <NavLink to="/watchlist">Watchlist</NavLink>}
-        {user && <NavLink to="/media"></NavLink>}
+        {user && <NavLink to='/profile'>Profile</NavLink>}
+        {user && <NavLink to='/watchlist'>Watchlist</NavLink>}
+        {user && <NavLink to='/media'>Media</NavLink>}
 
-        <NavLink to="/about">About</NavLink>
+        <NavLink to='/about'>About</NavLink>
 
         {user ? (
           <button onClick={logout}>Log out</button>
         ) : (
-          <NavLink to="/login">Login</NavLink>
+          <NavLink to='/login'>Login</NavLink>
         )}
       </div>
     </nav>
