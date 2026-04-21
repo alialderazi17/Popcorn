@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import axios from "axios"
-import MediaForm from "./MediaForm"
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import MediaForm from './MediaForm'
 
 const MovieDetails = ({ userId }) => {
   const { id } = useParams()
@@ -11,11 +11,11 @@ const MovieDetails = ({ userId }) => {
     const fetchMovie = async () => {
       try {
         const res = await axios.get(
-          `https://popcorn-be.onrender.com/media/movies/${id}`
+          `https://popcorn-be.onrender.com/media/movie/${id}`
         )
         setMovie(res.data)
       } catch (err) {
-        console.error("Error fetching movie details:", err)
+        console.error('Error fetching movie details:', err)
       }
     }
     fetchMovie()
@@ -24,17 +24,17 @@ const MovieDetails = ({ userId }) => {
   if (!movie) return <div>Loading...</div>
 
   return (
-    <div className="details-page">
-      <div className="details-card">
+    <div className='details-page'>
+      <div className='details-card'>
         <img src={movie.image} alt={movie.title} />
-        <div className="info">
+        <div className='info'>
           <h1>{movie.title}</h1>
           <p>{movie.description}</p>
           <p>Released: {new Date(movie.releaseDate).toLocaleDateString()}</p>
         </div>
       </div>
 
-      <div className="add-to-list-section">
+      <div className='add-to-list-section'>
         <h2>Update My List</h2>
         <MediaForm userId={userId} mediaId={movie._id} />
       </div>
