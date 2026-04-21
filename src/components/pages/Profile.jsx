@@ -14,11 +14,11 @@ const Profile = ({ user }) => {
 
         <p>
           {" "}
-          <strong>Username: </strong> {user?.usernam || "Guest"}
+          <strong>Username: </strong> {user.username}
         </p>
         <p>
           {" "}
-          <strong>Email: </strong> {user?.email || "not available"}
+          <strong>Email: </strong> {user.email}
         </p>
 
         <Link to="/update-password">
