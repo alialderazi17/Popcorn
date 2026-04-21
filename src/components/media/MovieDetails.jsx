@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import axios from "axios"
-import MediaForm from "./MediaForm"
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import MediaForm from './MediaForm'
 
 const MovieDetails = ({ user }) => {
   const { id } = useParams()
@@ -15,7 +15,7 @@ const MovieDetails = ({ user }) => {
         )
         setMovie(res.data)
       } catch (err) {
-        console.error(err)
+        console.error('Error fetching movie details:', err)
       }
     }
     fetchMovie()
@@ -24,16 +24,16 @@ const MovieDetails = ({ user }) => {
   if (!movie) return <div>Loading...</div>
 
   return (
-    <div className="details-page">
-      <div className="details-card">
+    <div className='details-page'>
+      <div className='details-card'>
         <img src={movie.image} alt={movie.title} />
-        <div className="info">
+        <div className='info'>
           <h1>{movie.title}</h1>
           <p>{movie.description}</p>
           <p>Released: {new Date(movie.releaseDate).toLocaleDateString()}</p>
         </div>
       </div>
-      <div className="add-to-list-section">
+      <div className='add-to-list-section'>
         <MediaForm user={user} mediaId={movie._id} />
       </div>
     </div>

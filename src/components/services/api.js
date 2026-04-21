@@ -1,14 +1,14 @@
-import Axios from "axios"
+import Axios from 'axios'
 
-export const BASE_URL = "https://popcorn-be.onrender.com"
+export const BASE_URL = 'https://popcorn-be.onrender.com'
 
 const Client = Axios.create({ baseURL: BASE_URL })
 
 Client.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`
+      config.headers['Authorization'] = `Bearer ${token}`
     }
     return config
   },

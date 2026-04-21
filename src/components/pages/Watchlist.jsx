@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import Client from "../services/api"
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import Client from '../services/api'
 
 const Watchlist = ({ user }) => {
   const [list, setList] = useState(null)
   const [loading, setLoading] = useState(true)
   const [editingItem, setEditingItem] = useState(null)
   const [editFormData, setEditFormData] = useState({
-    status: "",
-    userRating: "",
-    description: "",
+    status: '',
+    userRating: '',
+    description: '',
   })
 
   const userId = user?.id || user?._id || user?.user?.id || user?.user?._id
@@ -34,14 +34,14 @@ const Watchlist = ({ user }) => {
     setEditFormData({
       status: item.status,
       userRating: item.userRating,
-      description: item.description || "",
+      description: item.description || '',
     })
   }
 
   const handleRatingChange = (e) => {
     let val = e.target.value
-    if (val === "") {
-      setEditFormData({ ...editFormData, userRating: "" })
+    if (val === '') {
+      setEditFormData({ ...editFormData, userRating: '' })
       return
     }
     let num = parseInt(val)
@@ -57,17 +57,17 @@ const Watchlist = ({ user }) => {
         mediaId: editingItem.media._id,
         ...editFormData,
       })
-      alert("Updated successfully!")
+      alert('Updated successfully!')
       setEditingItem(null)
       fetchUserList()
     } catch (err) {
       console.error(err)
-      alert("Error updating entry")
+      alert('Error updating entry')
     }
   }
 
   const handleDelete = async (mediaId) => {
-    if (!window.confirm("Are you sure you want to remove this from your list?"))
+    if (!window.confirm('Are you sure you want to remove this from your list?'))
       return
     try {
       await Client.delete(`/watchlist/${userId}`, {
@@ -79,58 +79,58 @@ const Watchlist = ({ user }) => {
     }
   }
 
-  if (loading) return <div className="loading">Loading your list...</div>
+  if (loading) return <div className='loading'>Loading your list...</div>
 
   const watchlistItems = list?.items || []
 
   return (
-    <div className="watchlist-page">
+    <div className='watchlist-page'>
       <h1>My Media List</h1>
 
       {watchlistItems.length === 0 ? (
-        <div className="empty-list">
+        <div className='empty-list'>
           <p>Your list is empty.</p>
-          <Link to="/" className="browse-link">
+          <Link to='/media' className='browse-link'>
             Browse Media
           </Link>
         </div>
       ) : (
-        <div className="list-grid">
+        <div className='list-grid'>
           {watchlistItems.map((item) => (
-            <div key={item._id} className="watchlist-item">
-              <div className="item-card">
+            <div key={item._id} className='watchlist-item'>
+              <div className='item-card'>
                 <img src={item.media?.image} alt={item.media?.title} />
-                <div className="item-info">
-                  <div className="item-header">
+                <div className='item-info'>
+                  <div className='item-header'>
                     <h3>{item.media?.title}</h3>
-                    <span className="media-type-badge">
+                    <span className='media-type-badge'>
                       {item.media?.mediaType?.toUpperCase()}
                     </span>
                   </div>
 
-                  <div className="stats">
+                  <div className='stats'>
                     <span
-                      className={`status-pill ${item.status?.replace(/\s+/g, "-")}`}
+                      className={`status-pill ${item.status?.replace(/\s+/g, '-')}`}
                     >
                       {item.status}
                     </span>
-                    <span className="user-score">⭐ {item.userRating}/10</span>
+                    <span className='user-score'>⭐ {item.userRating}/10</span>
                   </div>
 
                   {item.description && (
-                    <p className="notes-preview">"{item.description}"</p>
+                    <p className='notes-preview'>"{item.description}"</p>
                   )}
 
-                  <div className="actions">
+                  <div className='actions'>
                     <button
                       onClick={() => handleEditClick(item)}
-                      className="edit-btn"
+                      className='edit-btn'
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(item.media?._id)}
-                      className="delete-btn"
+                      className='delete-btn'
                     >
                       Delete
                     </button>
@@ -145,14 +145,14 @@ const Watchlist = ({ user }) => {
       {editingItem && (
         <>
           <div
-            className="modal-overlay"
+            className='modal-overlay'
             onClick={() => setEditingItem(null)}
           ></div>
-          <div className="modal-content">
-            <form onSubmit={handleUpdate} className="media-form">
+          <div className='modal-content'>
+            <form onSubmit={handleUpdate} className='media-form'>
               <h2>Edit Entry: {editingItem.media?.title}</h2>
 
-              <div className="form-section">
+              <div className='form-section'>
                 <label>Status</label>
                 <select
                   value={editFormData.status}
@@ -160,21 +160,21 @@ const Watchlist = ({ user }) => {
                     setEditFormData({ ...editFormData, status: e.target.value })
                   }
                 >
-                  <option value="watching">Watching</option>
-                  <option value="completed">Completed</option>
-                  <option value="onhold">On-Hold</option>
-                  <option value="dropped">Dropped</option>
-                  <option value="plan to watch">Plan to Watch</option>
+                  <option value='watching'>Watching</option>
+                  <option value='completed'>Completed</option>
+                  <option value='onhold'>On-Hold</option>
+                  <option value='dropped'>Dropped</option>
+                  <option value='plan to watch'>Plan to Watch</option>
                 </select>
               </div>
 
-              <div className="form-section">
+              <div className='form-section'>
                 <label>Your Rating (1-10)</label>
-                <div className="rating-input-wrapper">
+                <div className='rating-input-wrapper'>
                   <input
-                    type="number"
-                    min="1"
-                    max="10"
+                    type='number'
+                    min='1'
+                    max='10'
                     value={editFormData.userRating}
                     onChange={handleRatingChange}
                   />
@@ -182,10 +182,10 @@ const Watchlist = ({ user }) => {
                 </div>
               </div>
 
-              <div className="form-section">
+              <div className='form-section'>
                 <label>Personal Notes</label>
                 <textarea
-                  rows="4"
+                  rows='4'
                   value={editFormData.description}
                   onChange={(e) =>
                     setEditFormData({
@@ -196,13 +196,13 @@ const Watchlist = ({ user }) => {
                 />
               </div>
 
-              <div className="button-group">
-                <button type="submit" className="submit-btn">
+              <div className='button-group'>
+                <button type='submit' className='submit-btn'>
                   Save Changes
                 </button>
                 <button
-                  type="button"
-                  className="cancel-btn"
+                  type='button'
+                  className='cancel-btn'
                   onClick={() => setEditingItem(null)}
                 >
                   Cancel

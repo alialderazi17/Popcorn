@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import axios from "axios"
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Movies = () => {
   const [movies, setMovies] = useState([])
@@ -9,25 +9,25 @@ const Movies = () => {
     const fetchMovies = async () => {
       try {
         const res = await axios.get(
-          "https://popcorn-be.onrender.com/media/movies"
+          'https://popcorn-be.onrender.com/media/movies'
         )
         setMovies(res.data)
       } catch (err) {
-        console.error("Error fetching movies:", err)
+        console.error('Error fetching movies:', err)
       }
     }
     fetchMovies()
   }, [])
 
   return (
-    <div className="media-container">
+    <div className='media-container'>
       <h1>Movies</h1>
-      <div className="media-grid">
+      <div className='media-grid'>
         {movies.map((movie) => (
           <Link
-            to={`/movies/${movie._id}`}
+            to={`/movie/${movie._id}`}
             key={movie._id}
-            className="media-card"
+            className='media-card'
           >
             <img src={movie.image} alt={movie.title} />
             <h3>{movie.title}</h3>
