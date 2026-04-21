@@ -13,6 +13,7 @@ const Nav = ({ user, setUser }) => {
 
         {user && <NavLink to="/profile">Profile</NavLink>}
         {user && <NavLink to="/watchlist">Watchlist</NavLink>}
+        {user && <NavLink to="/media"></NavLink>}
 
         <NavLink to="/about">About</NavLink>
 
