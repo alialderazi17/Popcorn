@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import axios from "axios"
+import Client from "../services/api"
 
-const MediaForm = ({ userId, mediaId, initialData }) => {
+const MediaForm = ({ user, mediaId, initialData }) => {
   const [showForm, setShowForm] = useState(false)
   const [formData, setFormData] = useState({
     status: initialData?.status || "plan to watch",
@@ -21,15 +21,30 @@ const MediaForm = ({ userId, mediaId, initialData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const currentUserId =
+      user?.id || user?._id || user?.user?.id || user?.user?._id
+
+    if (!currentUserId) {
+      alert("Please login first")
+      return
+    }
+
     try {
-      await axios.post(`/mediaList/${userId}`, {
-        mediaId,
-        ...formData,
-      })
+      const payload = {
+        media: mediaId,
+        status: formData.status,
+        userRating: formData.userRating,
+        description: formData.description,
+      }
+
+      const res = await Client.post(`/watchlist/${currentUserId}`, payload)
+
       alert("Updated your list!")
       setShowForm(false)
     } catch (err) {
-      console.error("Error saving media:", err)
+      const errorMsg = err.response?.data?.message || "Error adding item"
+      alert(errorMsg)
+      console.error("Full error:", err.response?.data)
     }
   }
 
@@ -41,17 +56,13 @@ const MediaForm = ({ userId, mediaId, initialData }) => {
 
       {showForm && (
         <>
-          {/* Dark background overlay */}
           <div
             className="modal-overlay"
             onClick={() => setShowForm(false)}
           ></div>
-
-          {/* The actual pop-up form */}
           <div className="modal-content">
             <form onSubmit={handleSubmit} className="media-form">
-              <h2>Update Media</h2>
-
+              <h2>Add to list</h2>
               <div className="form-section">
                 <label htmlFor="status">Status</label>
                 <select
@@ -67,7 +78,6 @@ const MediaForm = ({ userId, mediaId, initialData }) => {
                   <option value="plan to watch">Plan to Watch</option>
                 </select>
               </div>
-
               <div className="form-section">
                 <label htmlFor="userRating">Rating (1-10)</label>
                 <div className="rating-input-wrapper">
@@ -84,7 +94,6 @@ const MediaForm = ({ userId, mediaId, initialData }) => {
                   <span>/ 10</span>
                 </div>
               </div>
-
               <div className="form-section">
                 <label htmlFor="description">Notes</label>
                 <textarea
@@ -95,7 +104,6 @@ const MediaForm = ({ userId, mediaId, initialData }) => {
                   rows="4"
                 />
               </div>
-
               <div className="button-group">
                 <button type="submit" className="submit-btn">
                   Save
