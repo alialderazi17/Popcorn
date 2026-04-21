@@ -15,6 +15,7 @@ import Login from './components/auth/Login'
 import MovieDetails from './components/media/MovieDetails'
 import TvDetails from './components/media/TvDetails'
 import Media from './components/Media'
+import Genre from './components/media/Genre.jsx'
 import './App.css'
 
 const App = () => {
@@ -63,6 +64,7 @@ const App = () => {
           <Route path='/movies/:id' element={<MovieDetails />} />
           <Route path='/tv/:id' element={<TvDetails />} />
           <Route path='/media' element={<Media />} />
+          <Route path='/genres' element={<Genre />} />
         </Routes>
       </div>
     </>

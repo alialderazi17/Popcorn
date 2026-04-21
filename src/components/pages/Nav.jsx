@@ -14,7 +14,7 @@ const Nav = ({ user, setUser }) => {
         {user && <NavLink to='/profile'>Profile</NavLink>}
         {user && <NavLink to='/watchlist'>Watchlist</NavLink>}
         {user && <NavLink to='/media'>Media</NavLink>}
-
+        {user && <NavLink to='/genres'>Genres</NavLink>}
         <NavLink to='/about'>About</NavLink>
 
         {user ? (
