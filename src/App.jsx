@@ -1,21 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { useState, useEffect, use } from 'react'
-import { checkSession } from './components/services/Auth.js'
-import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { useState, useEffect, use } from "react"
+import { checkSession } from "./components/services/Auth.js"
+import ProtectedRoute from "./components/auth/ProtectedRoute.jsx"
 
-import Nav from './components/pages/Nav.jsx'
-import Home from './components/pages/Home.jsx'
-import Profile from './components/pages/Profile.jsx'
-import Watchlist from './components/pages/Watchlist.jsx'
-import About from './components/pages/About.jsx'
+import Nav from "./components/pages/Nav.jsx"
+import Home from "./components/pages/Home.jsx"
+import Profile from "./components/pages/Profile.jsx"
+import Watchlist from "./components/pages/Watchlist.jsx"
+import About from "./components/pages/About.jsx"
 
-import Register from './components/auth/Register'
-import Login from './components/auth/Login'
+import Register from "./components/auth/Register"
+import Login from "./components/auth/Login"
 
-import MovieDetails from './components/media/MovieDetails'
-import TvDetails from './components/media/TvDetails'
-
-import './App.css'
+import MovieDetails from "./components/media/MovieDetails"
+import TvDetails from "./components/media/TvDetails"
+import Media from "./components/Media"
+import "./App.css"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -62,6 +62,7 @@ const App = () => {
 
           <Route path="/movies/:id" element={<MovieDetails />} />
           <Route path="/tv/:id" element={<TvDetails />} />
+          <Route path="/media" element={<Media />} />
         </Routes>
       </div>
     </>
