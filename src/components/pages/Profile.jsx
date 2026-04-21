@@ -1,3 +1,3 @@
-const Profile = () => {}
+const Profile = ({ user }) => {}
 
 export default Profile

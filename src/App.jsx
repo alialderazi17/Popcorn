@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState, useEffect, use } from 'react'
 import { checkSession } from './components/services/Auth.js'
+import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
 
 import Nav from './components/pages/Nav.jsx'
 import Home from './components/pages/Home.jsx'
@@ -39,8 +40,22 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
 
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/watchlist" element={<Watchlist />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute user={user}>
+                <Profile user={user} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/watchlist"
+            element={
+              <ProtectedRoute user={user}>
+                <Watchlist user={user} />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login setUser={setUser} />} />

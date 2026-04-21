@@ -10,8 +10,10 @@ const Nav = ({ user, setUser }) => {
     <nav>
       <div>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/profile">Profile</NavLink>
-        <NavLink to="/watchlist">Watchlist</NavLink>
+
+        {user && <NavLink to="/profile">Profile</NavLink>}
+        {user && <NavLink to="/watchlist">Watchlist</NavLink>}
+
         <NavLink to="/about">About</NavLink>
 
         {user ? (
