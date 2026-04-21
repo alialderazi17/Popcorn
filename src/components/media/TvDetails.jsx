@@ -11,7 +11,7 @@ const TvDetails = ({ userId }) => {
     const fetchShow = async () => {
       try {
         const res = await axios.get(
-          `https://popcorn-be.onrender.com/media/${id}`
+          `https://popcorn-be.onrender.com/media/tv/${id}`
         )
         setShow(res.data)
       } catch (err) {

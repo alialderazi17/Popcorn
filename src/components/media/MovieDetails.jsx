@@ -11,7 +11,7 @@ const MovieDetails = ({ userId }) => {
     const fetchMovie = async () => {
       try {
         const res = await axios.get(
-          `https://popcorn-be.onrender.com/media/${id}`
+          `https://popcorn-be.onrender.com/media/movies/${id}`
         )
         setMovie(res.data)
       } catch (err) {
