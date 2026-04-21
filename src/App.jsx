@@ -1,17 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { useState, useEffect, use } from "react"
+import { Routes, Route } from "react-router-dom"
+import { useState, useEffect } from "react"
 import { checkSession } from "./components/services/Auth.js"
 import ProtectedRoute from "./components/auth/ProtectedRoute.jsx"
-
 import Nav from "./components/pages/Nav.jsx"
 import Home from "./components/pages/Home.jsx"
 import Profile from "./components/pages/Profile.jsx"
 import Watchlist from "./components/pages/Watchlist.jsx"
 import About from "./components/pages/About.jsx"
-
 import Register from "./components/auth/Register"
 import Login from "./components/auth/Login"
-
 import MovieDetails from "./components/media/MovieDetails"
 import TvDetails from "./components/media/TvDetails"
 import Media from "./components/Media"
@@ -39,7 +36,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-
           <Route
             path="/profile"
             element={
@@ -56,12 +52,10 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
-
-          <Route path="/movies/:id" element={<MovieDetails />} />
-          <Route path="/tv/:id" element={<TvDetails />} />
+          <Route path="/movies/:id" element={<MovieDetails user={user} />} />
+          <Route path="/tv/:id" element={<TvDetails user={user} />} />
           <Route path="/media" element={<Media />} />
         </Routes>
       </div>
