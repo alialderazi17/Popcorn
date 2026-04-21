@@ -1,8 +1,8 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom"
 
 const Nav = ({ user, setUser }) => {
   const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem("token")
     setUser(null)
   }
 
