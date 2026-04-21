@@ -3,19 +3,17 @@ import { useParams } from "react-router-dom"
 import axios from "axios"
 import MediaForm from "./MediaForm"
 
-const TvDetails = ({ userId }) => {
+const TvDetails = ({ user }) => {
   const { id } = useParams()
   const [show, setShow] = useState(null)
 
   useEffect(() => {
     const fetchShow = async () => {
       try {
-        const res = await axios.get(
-          `https://popcorn-be.onrender.com/media/tv/${id}`
-        )
+        const res = await axios.get(`http://localhost:3000/media/tv/${id}`)
         setShow(res.data)
       } catch (err) {
-        console.error("Error fetching TV details:", err)
+        console.error(err)
       }
     }
     fetchShow()
@@ -34,14 +32,11 @@ const TvDetails = ({ userId }) => {
           <p>
             First Air Date: {new Date(show.releaseDate).toLocaleDateString()}
           </p>
-          <p>Global Rating: {show.rating} / 10</p>
+          <p>Global Rating: {show.rating}/10</p>
         </div>
       </div>
-
       <div className="add-to-list-section">
-        <h2>Add to My Collection</h2>
-
-        <MediaForm userId={userId} mediaId={show._id} />
+        <MediaForm user={user} mediaId={show._id} />
       </div>
     </div>
   )

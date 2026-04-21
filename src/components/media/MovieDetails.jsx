@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import MediaForm from './MediaForm'
 
-const MovieDetails = ({ userId }) => {
+const MovieDetails = ({ user }) => {
   const { id } = useParams()
   const [movie, setMovie] = useState(null)
 
@@ -33,10 +33,8 @@ const MovieDetails = ({ userId }) => {
           <p>Released: {new Date(movie.releaseDate).toLocaleDateString()}</p>
         </div>
       </div>
-
       <div className='add-to-list-section'>
-        <h2>Update My List</h2>
-        <MediaForm userId={userId} mediaId={movie._id} />
+        <MediaForm user={user} mediaId={movie._id} />
       </div>
     </div>
   )
