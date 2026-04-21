@@ -1,31 +1,78 @@
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const Profile = ({ user }) => {
+  const { id } = useParams()
+  const [profileData, setProfileData] = useState(null)
+
+  useEffect(() => {
+    const getProfile = async () => {
+      if (id) {
+        try {
+          const response = await axios.get(
+            `https://popcorn-be.onrender.com/user/${id}`
+          )
+          setProfileData(response.data)
+        } catch (error) {
+          console.error('Error fetching user profile:', error)
+        }
+      } else {
+        setProfileData(user)
+      }
+    }
+    getProfile()
+  }, [id, user])
+
+  if (!profileData)
+    return (
+      <div className='profile page'>
+        <h1>Loading...</h1>
+      </div>
+    )
+
+  const isOwner = user && profileData._id === user._id
+
   return (
     <div className='profile page'>
-      <h1>Profile Page</h1>
+      <h1>{isOwner ? 'My Profile' : `${profileData.username}'s Profile`}</h1>
       <div className='description'>
         <div className='profile-img'>
           <img
-            src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+            src={
+              profileData.profilePic ||
+              'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+            }
             alt='Profile-pic'
           />
         </div>
 
         <p>
           {' '}
-          <strong>Username: </strong> {user.username}
-        </p>
-        <p>
-          {' '}
-          <strong>Email: </strong> {user.email}
+          <strong>Username: </strong> {profileData.username}
         </p>
 
-        <Link to='/update-password'>
-          <button>Update Password</button>
-        </Link>
+        {isOwner && (
+          <p>
+            {' '}
+            <strong>Email: </strong> {profileData.email}
+          </p>
+        )}
+
+        <h4>
+          <Link to={isOwner ? `/watchlist` : `/watchlist/${profileData._id}`}>
+            {profileData.username}'s List
+          </Link>
+        </h4>
+
+        {isOwner && (
+          <Link to={`/update-password/${profileData._id}`}>
+            <button>Update Password</button>
+          </Link>
+        )}
       </div>
     </div>
   )
 }
+
 export default Profile

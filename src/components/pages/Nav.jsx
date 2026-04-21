@@ -10,7 +10,7 @@ const Nav = ({ user, setUser }) => {
     <nav>
       <div>
         <NavLink to='/'>Home</NavLink>
-
+        <NavLink to='user'>Users</NavLink>
         {user && <NavLink to='/profile'>Profile</NavLink>}
         {user && <NavLink to='/watchlist'>Watchlist</NavLink>}
         {user && <NavLink to='/media'>Media</NavLink>}
