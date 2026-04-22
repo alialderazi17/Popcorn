@@ -6,12 +6,12 @@ import Nav from './components/pages/Nav.jsx'
 import Home from './components/pages/Home.jsx'
 import Profile from './components/pages/Profile.jsx'
 import Watchlist from './components/pages/Watchlist.jsx'
-import About from './components/pages/About.jsx'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
+import UpdatePassword from './components/auth/UpdatePassword.jsx'
 import MovieDetails from './components/media/MovieDetails'
 import TvDetails from './components/media/TvDetails'
-import Media from './components/Media'
+import Media from './components/media/Media.jsx'
 import Genre from './components/media/Genre.jsx'
 import GenreDetails from './components/media/GenreDetails.jsx'
 import Users from './components/pages/Users.jsx'
@@ -19,12 +19,14 @@ import './App.css'
 
 const App = () => {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const checkUser = async () => {
       try {
         const sessionUser = await checkSession()
         setUser(sessionUser)
+        setLoading(false)
       } catch (error) {
         console.log('No valid session')
       }
@@ -34,38 +36,49 @@ const App = () => {
 
   return (
     <>
-      <Nav user={user} setUser={setUser} />
-      <div className='main-content'>
+      <Nav setLoading={setLoading} user={user} setUser={setUser} />
+      <div className="main-content">
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login setUser={setUser} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/login"
+            element={<Login setLoading={setLoading} setUser={setUser} />}
+          />
 
           <Route
-            path='/profile'
+            path="/profile"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute loading={loading} user={user}>
                 <Profile user={user} />
               </ProtectedRoute>
             }
           />
           <Route
-            path='/watchlist'
+            path="/watchlist"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute loading={loading} user={user}>
                 <Watchlist user={user} />
               </ProtectedRoute>
             }
           />
-          <Route path='/watchlist/:id' element={<Watchlist user={user} />} />
-          <Route path='/user' element={<Users />} />
-          <Route path='/profile/:id' element={<Profile user={user} />} />
-          <Route path='/movie/:id' element={<MovieDetails user={user} />} />
-          <Route path='/tv/:id' element={<TvDetails user={user} />} />
-          <Route path='/media' element={<Media />} />
-          <Route path='/genres' element={<Genre />} />
-          <Route path='/genres/:id' element={<GenreDetails />} />
+
+          <Route
+            path="/update-password/:id"
+            element={
+              <ProtectedRoute loading={loading} user={user}>
+                <UpdatePassword user={user} />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/watchlist/:id" element={<Watchlist user={user} />} />
+          <Route path="/user" element={<Users />} />
+          <Route path="/profile/:id" element={<Profile user={user} />} />
+          <Route path="/movie/:id" element={<MovieDetails user={user} />} />
+          <Route path="/tv/:id" element={<TvDetails user={user} />} />
+          <Route path="/media" element={<Media />} />
+          <Route path="/genres" element={<Genre />} />
+          <Route path="/genres/:id" element={<GenreDetails />} />
         </Routes>
       </div>
     </>

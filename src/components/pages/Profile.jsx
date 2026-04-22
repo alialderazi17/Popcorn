@@ -26,24 +26,25 @@ const Profile = ({ user }) => {
 
   if (!profileData)
     return (
-      <div className='profile page'>
+      <div className="profile page">
         <h1>Loading...</h1>
       </div>
     )
 
-  const isOwner = user && profileData._id === user._id
+  console.log(user)
+  const isOwner = user && profileData.id === user.id
 
   return (
-    <div className='profile page'>
+    <div className="profile page">
       <h1>{isOwner ? 'My Profile' : `${profileData.username}'s Profile`}</h1>
-      <div className='description'>
-        <div className='profile-img'>
+      <div className="description">
+        <div className="profile-img">
           <img
             src={
               profileData.profilePic ||
               'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
             }
-            alt='Profile-pic'
+            alt="Profile-pic"
           />
         </div>
 
@@ -60,13 +61,13 @@ const Profile = ({ user }) => {
         )}
 
         <h4>
-          <Link to={isOwner ? `/watchlist` : `/watchlist/${profileData._id}`}>
+          <Link to={isOwner ? `/watchlist` : `/watchlist/${profileData.id}`}>
             {profileData.username}'s List
           </Link>
         </h4>
 
         {isOwner && (
-          <Link to={`/update-password/${profileData._id}`}>
+          <Link to={`/update-password/${profileData.id}`}>
             <button>Update Password</button>
           </Link>
         )}
