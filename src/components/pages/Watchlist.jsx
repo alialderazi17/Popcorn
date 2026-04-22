@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Client from '../services/api'
 
 const Watchlist = ({ user }) => {
+  const { id } = useParams() // Get ID if viewing someone else
   const [list, setList] = useState(null)
   const [loading, setLoading] = useState(true)
   const [editingItem, setEditingItem] = useState(null)
@@ -12,11 +13,15 @@ const Watchlist = ({ user }) => {
     description: '',
   })
 
-  const userId = user?.id || user?._id || user?.user?.id || user?.user?._id
+  // Logic to determine which user's data to show
+  const loggedInUserId =
+    user?.id || user?._id || user?.user?.id || user?.user?._id
+  const targetUserId = id || loggedInUserId
+  const isOwner = !id || id === loggedInUserId
 
   const fetchUserList = async () => {
     try {
-      const res = await Client.get(`/watchlist/${userId}`)
+      const res = await Client.get(`/watchlist/${targetUserId}`)
       setList(res.data)
       setLoading(false)
     } catch (err) {
@@ -26,8 +31,8 @@ const Watchlist = ({ user }) => {
   }
 
   useEffect(() => {
-    if (userId) fetchUserList()
-  }, [userId])
+    if (targetUserId) fetchUserList()
+  }, [targetUserId])
 
   const handleEditClick = (item) => {
     setEditingItem(item)
@@ -53,7 +58,7 @@ const Watchlist = ({ user }) => {
   const handleUpdate = async (e) => {
     e.preventDefault()
     try {
-      await Client.put(`/watchlist/${userId}`, {
+      await Client.put(`/watchlist/${loggedInUserId}`, {
         mediaId: editingItem.media._id,
         ...editFormData,
       })
@@ -70,7 +75,7 @@ const Watchlist = ({ user }) => {
     if (!window.confirm('Are you sure you want to remove this from your list?'))
       return
     try {
-      await Client.delete(`/watchlist/${userId}`, {
+      await Client.delete(`/watchlist/${loggedInUserId}`, {
         data: { media: mediaId },
       })
       fetchUserList()
@@ -79,20 +84,30 @@ const Watchlist = ({ user }) => {
     }
   }
 
-  if (loading) return <div className='loading'>Loading your list...</div>
+  if (loading) return <div className='loading'>Loading list...</div>
 
   const watchlistItems = list?.items || []
 
   return (
     <div className='watchlist-page'>
-      <h1>My Media List</h1>
+      <h1>
+        {isOwner
+          ? 'My Media List'
+          : `${list?.user?.username || 'User'}'s Media List`}
+      </h1>
 
       {watchlistItems.length === 0 ? (
         <div className='empty-list'>
-          <p>Your list is empty.</p>
-          <Link to='/media' className='browse-link'>
-            Browse Media
-          </Link>
+          <p>
+            {isOwner
+              ? 'Your list is empty.'
+              : 'This user has no items in their list.'}
+          </p>
+          {isOwner && (
+            <Link to='/media' className='browse-link'>
+              Browse Media
+            </Link>
+          )}
         </div>
       ) : (
         <div className='list-grid'>
@@ -121,20 +136,23 @@ const Watchlist = ({ user }) => {
                     <p className='notes-preview'>"{item.description}"</p>
                   )}
 
-                  <div className='actions'>
-                    <button
-                      onClick={() => handleEditClick(item)}
-                      className='edit-btn'
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(item.media?._id)}
-                      className='delete-btn'
-                    >
-                      Delete
-                    </button>
-                  </div>
+                  {/* ONLY show actions if the logged-in user owns this list */}
+                  {isOwner && (
+                    <div className='actions'>
+                      <button
+                        onClick={() => handleEditClick(item)}
+                        className='edit-btn'
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(item.media?._id)}
+                        className='delete-btn'
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

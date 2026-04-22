@@ -14,6 +14,7 @@ import TvDetails from './components/media/TvDetails'
 import Media from './components/Media'
 import Genre from './components/media/Genre.jsx'
 import GenreDetails from './components/media/GenreDetails.jsx'
+import Users from './components/pages/Users.jsx'
 import './App.css'
 
 const App = () => {
@@ -57,7 +58,9 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
+          <Route path='/watchlist/:id' element={<Watchlist user={user} />} />
+          <Route path='/user' element={<Users />} />
+          <Route path='/profile/:id' element={<Profile user={user} />} />
           <Route path='/movie/:id' element={<MovieDetails user={user} />} />
           <Route path='/tv/:id' element={<TvDetails user={user} />} />
           <Route path='/media' element={<Media />} />
