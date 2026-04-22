@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import axios from "axios"
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Tv = () => {
   const [tvShows, setTvShows] = useState([])
@@ -8,10 +8,10 @@ const Tv = () => {
   useEffect(() => {
     const fetchTv = async () => {
       try {
-        const res = await axios.get("https://popcorn-be.onrender.com/media/tv")
+        const res = await axios.get('https://popcorn-be.onrender.com/media/tv')
         setTvShows(res.data)
       } catch (err) {
-        console.error("Error fetching TV shows:", err)
+        console.error('Error fetching TV shows:', err)
       }
     }
     fetchTv()
@@ -19,7 +19,6 @@ const Tv = () => {
 
   return (
     <div className="media-container">
-      <h1>TV Shows</h1>
       <div className="media-grid">
         {tvShows.map((show) => (
           <Link to={`/tv/${show._id}`} key={show._id} className="media-card">

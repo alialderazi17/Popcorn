@@ -20,14 +20,13 @@ const Movies = () => {
   }, [])
 
   return (
-    <div className='media-container'>
-      <h1>Movies</h1>
-      <div className='media-grid'>
+    <div className="media-container">
+      <div className="media-grid">
         {movies.map((movie) => (
           <Link
             to={`/movie/${movie._id}`}
             key={movie._id}
-            className='media-card'
+            className="media-card"
           >
             <img src={movie.image} alt={movie.title} />
             <h3>{movie.title}</h3>
