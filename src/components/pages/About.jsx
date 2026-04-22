@@ -1,7 +1,9 @@
-const About = () => {
+import { NavLink } from 'react-router-dom'
+
+const About = ({ user }) => {
   return (
-    <div className="about-page">
-      <div className="about-description">
+    <div className='about-page'>
+      <div className='about-description'>
         <h1>Description About Popcorn</h1>
 
         <p>
@@ -10,12 +12,18 @@ const About = () => {
           by genre, you can add your favorite movie so everyone can watch it.
         </p>
       </div>
-      <div className="about-img">
+      <div className='about-img'>
         <img
-          src="https://i.pinimg.com/474x/4e/a8/2f/4ea82fd9873efb3e28067237a3a17ae4.jpg"
-          alt="movies"
+          src='https://i.pinimg.com/474x/4e/a8/2f/4ea82fd9873efb3e28067237a3a17ae4.jpg'
+          alt='movies'
         />
       </div>
+      <NavLink to={user ? '/media' : '/login'}>
+        <button className='media-button'>Go to Media!</button>
+      </NavLink>
+      <NavLink to={user ? '/genres' : '/login'}>
+        <button className='genre-button'>Checkout Genres!</button>
+      </NavLink>
     </div>
   )
 }

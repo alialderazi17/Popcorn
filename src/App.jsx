@@ -38,7 +38,7 @@ const App = () => {
       <div className='main-content'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
+          <Route path='/about' element={<About user={user} />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login setUser={setUser} />} />
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { NavLink } from 'react-router-dom'
 
 const GenreDetails = () => {
   const { id } = useParams()
@@ -23,7 +24,6 @@ const GenreDetails = () => {
 
   return (
     <div className='details-page'>
-      {/* Genre Header Section */}
       <div className='genre-header'>
         <h1>{genre.name}</h1>
         <p className='genre-description'>{genre.description}</p>
@@ -53,6 +53,9 @@ const GenreDetails = () => {
             <p>No titles found for this genre yet.</p>
           )}
         </div>
+        <NavLink to='/genres' className='back-button'>
+          <button className='back-button'>Back to Genres</button>
+        </NavLink>
       </div>
     </div>
   )
