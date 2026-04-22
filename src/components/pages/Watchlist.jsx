@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Client from '../services/api'
 
 const Watchlist = ({ user }) => {
-  const { id } = useParams() // Get ID if viewing someone else
+  const { id } = useParams()
   const [list, setList] = useState(null)
   const [loading, setLoading] = useState(true)
   const [editingItem, setEditingItem] = useState(null)
@@ -13,7 +13,6 @@ const Watchlist = ({ user }) => {
     description: '',
   })
 
-  // Logic to determine which user's data to show
   const loggedInUserId =
     user?.id || user?._id || user?.user?.id || user?.user?._id
   const targetUserId = id || loggedInUserId
@@ -136,7 +135,6 @@ const Watchlist = ({ user }) => {
                     <p className='notes-preview'>"{item.description}"</p>
                   )}
 
-                  {/* ONLY show actions if the logged-in user owns this list */}
                   {isOwner && (
                     <div className='actions'>
                       <button
