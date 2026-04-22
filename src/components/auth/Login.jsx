@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { loginUser } from '../services/Auth'
 import { useNavigate } from 'react-router-dom'
 
-const Login = ({ setUser }) => {
+const Login = ({ setLoading, setUser }) => {
   let navigate = useNavigate()
 
   const initialState = {
@@ -19,6 +19,7 @@ const Login = ({ setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const userData = await loginUser(form)
+    setLoading(true)
     setForm(initialState)
     setUser(userData)
     navigate('/')
