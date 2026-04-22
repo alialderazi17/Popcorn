@@ -29,6 +29,9 @@ const App = () => {
         setLoading(false)
       } catch (error) {
         console.log('No valid session')
+        setUser(null)
+      } finally {
+        setLoading(false)
       }
     }
     checkUser()
@@ -71,7 +74,10 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path='/watchlist/:id' element={<Watchlist user={user} />} />
+          <Route
+            path='/watchlist/:id'
+            element={<Watchlist user={user} appLoading={loading} />}
+          />
           <Route path='/user' element={<Users />} />
           <Route path='/profile/:id' element={<Profile user={user} />} />
           <Route path='/movie/:id' element={<MovieDetails user={user} />} />
