@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
-import axios from 'axios'
-import MediaForm from './MediaForm'
-import Nav from '../pages/Nav'
+import React, { useEffect, useState } from "react"
+import { NavLink, useParams } from "react-router-dom"
+import axios from "axios"
+import MediaForm from "./MediaForm"
+import Nav from "../pages/Nav"
 const MovieDetails = ({ user }) => {
   const { id } = useParams()
   const [movie, setMovie] = useState(null)
@@ -15,7 +15,7 @@ const MovieDetails = ({ user }) => {
         )
         setMovie(res.data)
       } catch (err) {
-        console.error('Error fetching movie details:', err)
+        console.error("Error fetching movie details:", err)
       }
     }
     fetchMovie()
@@ -24,20 +24,20 @@ const MovieDetails = ({ user }) => {
   if (!movie) return <div>Loading...</div>
 
   return (
-    <div className='details-page'>
-      <div className='details-card'>
+    <div className="details-page">
+      <div className="details-card">
         <img src={movie.image} alt={movie.title} />
-        <div className='info'>
+        <div className="info">
           <h1>{movie.title}</h1>
           <p>{movie.description}</p>
           <p>Released: {new Date(movie.releaseDate).toLocaleDateString()}</p>
         </div>
       </div>
-      <div className='add-to-list-section'>
+      <div className="add-to-list-section">
         <MediaForm user={user} mediaId={movie._id} />
       </div>
-      <NavLink to='/media' className='back-button'>
-        <button className='back-button'>Back to Media</button>
+      <NavLink to="/media" className="back-button">
+        <button className="edit-btn-outline">Back to Media</button>
       </NavLink>
     </div>
   )

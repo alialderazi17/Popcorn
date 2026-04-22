@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
+import axios from "axios"
+import { NavLink } from "react-router-dom"
 
 const GenreDetails = () => {
   const { id } = useParams()
   const [genre, setGenre] = useState(null)
+  const [filterType, setFilterType] = useState("all")
 
   useEffect(() => {
     const getGenre = async () => {
@@ -15,47 +16,72 @@ const GenreDetails = () => {
         )
         setGenre(response.data)
       } catch (error) {
-        console.error('Error getting genre details:', error.message)
+        console.error("Error getting genre details:", error.message)
       }
     }
     getGenre()
   }, [id])
   if (!genre) return <div>Loading...</div>
 
+  const filteredMedia = genre.media
+    ? genre.media.filter((item) => {
+        if (filterType === "all") return true
+        return item.mediaType === filterType
+      })
+    : []
+
   return (
-    <div className='details-page'>
-      <div className='genre-header'>
+    <div className="details-page">
+      <div className="genre-header">
         <h1>{genre.name}</h1>
-        <p className='genre-description'>{genre.description}</p>
+        <p className="genre-description">{genre.description}</p>
+
+        {/* 3. Add the toggle buttons */}
+        <div className="filter-buttons">
+          <button
+            className={filterType === "all" ? "active" : ""}
+            onClick={() => setFilterType("all")}
+          >
+            All
+          </button>
+          <button
+            className={filterType === "movie" ? "active" : ""}
+            onClick={() => setFilterType("movie")}
+          >
+            Movies
+          </button>
+          <button
+            className={filterType === "tv" ? "active" : ""}
+            onClick={() => setFilterType("tv")}
+          >
+            TV Shows
+          </button>
+        </div>
       </div>
 
       <hr />
 
-      <div className='media-container'>
-        <h2>Explore {genre.name} Titles</h2>
-        <div className='media-grid'>
-          {genre.media && genre.media.length > 0 ? (
-            genre.media.map((item) => (
+      <div className="media-container">
+        <div className="media-grid">
+          {/* 4. Map over filteredMedia instead of genre.media */}
+          {filteredMedia.length > 0 ? (
+            filteredMedia.map((item) => (
               <Link
                 to={`/${item.mediaType}/${item._id}`}
                 key={item._id}
-                className='media-card'
+                className="media-card"
               >
                 <img src={item.image} alt={item.title} />
-                <div className='media-info'>
+                <div className="media-info">
                   <h3>{item.title}</h3>
                   <p>Rating: {item.rating}</p>
-                  <span className='badge'>{item.mediaType}</span>
                 </div>
               </Link>
             ))
           ) : (
-            <p>No titles found for this genre yet.</p>
+            <p>No {filterType} titles found for this genre.</p>
           )}
         </div>
-        <NavLink to='/genres' className='back-button'>
-          <button className='back-button'>Back to Genres</button>
-        </NavLink>
       </div>
     </div>
   )

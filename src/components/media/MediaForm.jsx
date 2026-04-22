@@ -3,7 +3,6 @@ import Client from "../services/api"
 
 const MediaForm = ({ user, mediaId, initialData }) => {
   const [showForm, setShowForm] = useState(false)
-
   const [formData, setFormData] = useState({
     status: initialData?.status || "plan to watch",
     userRating: initialData?.userRating || "",
@@ -37,45 +36,30 @@ const MediaForm = ({ user, mediaId, initialData }) => {
         userRating: formData.userRating,
         description: formData.description,
       }
-
       await Client.post(`/watchlist/${currentUserId}`, payload)
-
       alert("Updated your list!")
-
-      // Reset form
-      setFormData({
-        status: "plan to watch",
-        userRating: "",
-        description: "",
-      })
       setShowForm(false)
     } catch (err) {
-      const errorMsg = err.response?.data?.message || "Error adding item"
-      alert(errorMsg)
-      console.error("Full error:", err.response?.data)
+      alert(err.response?.data?.message || "Error adding item")
     }
   }
 
   return (
     <div className="media-form-wrapper">
-      <button className="add-to-list-btn" onClick={() => setShowForm(true)}>
+      <button className="edit-btn-outline" onClick={() => setShowForm(true)}>
         Add to list
       </button>
 
       {showForm && (
         <>
-          <div
-            className="modal-overlay"
-            onClick={() => setShowForm(false)}
-          ></div>
+          /* Change MediaForm.jsx return statement to match Watchlist style */
           <div className="modal-content">
             <form onSubmit={handleSubmit} className="media-form">
-              <h2>Add to list</h2>
+              <h2>Add to List</h2>
 
               <div className="form-section">
-                <label htmlFor="status">Status</label>
+                <label>Status</label>
                 <select
-                  id="status"
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
@@ -89,13 +73,11 @@ const MediaForm = ({ user, mediaId, initialData }) => {
               </div>
 
               <div className="form-section">
-                <label htmlFor="userRating">Rating (1-10)</label>
+                <label>Your Rating</label>
                 <div className="rating-input-wrapper">
                   <input
-                    id="userRating"
                     type="number"
                     name="userRating"
-                    placeholder="Score"
                     min="1"
                     max="10"
                     value={formData.userRating}
@@ -106,26 +88,25 @@ const MediaForm = ({ user, mediaId, initialData }) => {
               </div>
 
               <div className="form-section">
-                <label htmlFor="description">Notes</label>
+                <label>Notes</label>
                 <textarea
-                  id="description"
                   name="description"
+                  rows="3"
                   value={formData.description}
                   onChange={handleChange}
-                  rows="4"
                 />
               </div>
 
               <div className="button-group">
-                <button type="submit" className="submit-btn">
+                <button type="submit" className="edit-btn-outline">
                   Save
                 </button>
                 <button
                   type="button"
-                  className="cancel-btn"
+                  className="delete-btn-outline"
                   onClick={() => setShowForm(false)}
                 >
-                  Cancel
+                  Close
                 </button>
               </div>
             </form>

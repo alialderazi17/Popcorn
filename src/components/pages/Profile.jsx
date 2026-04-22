@@ -8,10 +8,11 @@ const Profile = ({ user }) => {
 
   useEffect(() => {
     const getProfile = async () => {
-      if (id) {
+      const targetId = id || user?.id || user?._id
+      if (targetId) {
         try {
           const response = await axios.get(
-            `https://popcorn-be.onrender.com/user/${id}`
+            `https://popcorn-be.onrender.com/user/${targetId}`
           )
           setProfileData(response.data)
         } catch (error) {
@@ -31,48 +32,41 @@ const Profile = ({ user }) => {
       </div>
     )
 
-  const isOwner = user && profileData.id === user.id
+  const isOwner =
+    user &&
+    (profileData.id === user.id ||
+      profileData._id === user.id ||
+      profileData._id === user._id)
 
   return (
     <div className="profile page">
       <h1>{isOwner ? "My Profile" : `${profileData.username}'s Profile`}</h1>
       <div className="description">
         <div className="profile-img">
-          <img
-            src={
-              profileData.profilePic ||
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-            }
-            alt="Profile-pic"
-          />
+          {console.log(profileData.profilePic)}
+          <img src={profileData.profilePic} alt="Profile-pic" />
         </div>
 
         <p>
           {" "}
-          <strong>Username: </strong> {profileData.username}
+          <strong> </strong> {profileData.username}
         </p>
 
-        {isOwner && (
-          <p>
-            {" "}
-            <strong>Email: </strong> {profileData.email}
-          </p>
-        )}
-
-        <h4>
-          <Link to={isOwner ? `/watchlist` : `/watchlist/${profileData._id}`}>
+        <Link to={isOwner ? `/watchlist` : `/watchlist/${profileData._id}`}>
+          <button className="edit-btn-outline">
             {profileData.username}'s List
-          </Link>
-        </h4>
+          </button>{" "}
+          <br />
+        </Link>
 
         {isOwner && (
           <Link to={`/update-password/${profileData.id}`}>
-            <button>Update Password</button>
+            <button className="edit-btn-outline">Update Password</button>
           </Link>
         )}
         {isOwner && (
           <Link to={`/update-pfp/${profileData._id || profileData.id}`}>
-            <button className="edit-btn">Change Photo</button>
+            <button className="edit-btn-outline">Change Photo</button>
           </Link>
         )}
       </div>
