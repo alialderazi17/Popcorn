@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import MediaForm from './MediaForm'
+import { NavLink } from 'react-router-dom'
 
 const TvDetails = ({ user }) => {
   const { id } = useParams()
@@ -40,6 +41,9 @@ const TvDetails = ({ user }) => {
       <div className='add-to-list-section'>
         <MediaForm user={user} mediaId={show._id} />
       </div>
+      <NavLink to='/media' className='back-button'>
+        <button className='back-button'>Back to Media</button>
+      </NavLink>
     </div>
   )
 }

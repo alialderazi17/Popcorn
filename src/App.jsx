@@ -29,6 +29,9 @@ const App = () => {
         setLoading(false)
       } catch (error) {
         console.log('No valid session')
+        setUser(null)
+      } finally {
+        setLoading(false)
       }
     }
     checkUser()
@@ -37,17 +40,17 @@ const App = () => {
   return (
     <>
       <Nav setLoading={setLoading} user={user} setUser={setUser} />
-      <div className="main-content">
+      <div className='main-content'>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
           <Route
-            path="/login"
+            path='/login'
             element={<Login setLoading={setLoading} setUser={setUser} />}
           />
 
           <Route
-            path="/profile"
+            path='/profile'
             element={
               <ProtectedRoute loading={loading} user={user}>
                 <Profile user={user} />
@@ -55,7 +58,7 @@ const App = () => {
             }
           />
           <Route
-            path="/watchlist"
+            path='/watchlist'
             element={
               <ProtectedRoute loading={loading} user={user}>
                 <Watchlist user={user} />
@@ -64,21 +67,24 @@ const App = () => {
           />
 
           <Route
-            path="/update-password/:id"
+            path='/update-password/:id'
             element={
               <ProtectedRoute loading={loading} user={user}>
                 <UpdatePassword user={user} />
               </ProtectedRoute>
             }
           />
-          <Route path="/watchlist/:id" element={<Watchlist user={user} />} />
-          <Route path="/user" element={<Users />} />
-          <Route path="/profile/:id" element={<Profile user={user} />} />
-          <Route path="/movie/:id" element={<MovieDetails user={user} />} />
-          <Route path="/tv/:id" element={<TvDetails user={user} />} />
-          <Route path="/media" element={<Media />} />
-          <Route path="/genres" element={<Genre />} />
-          <Route path="/genres/:id" element={<GenreDetails />} />
+          <Route
+            path='/watchlist/:id'
+            element={<Watchlist user={user} appLoading={loading} />}
+          />
+          <Route path='/user' element={<Users />} />
+          <Route path='/profile/:id' element={<Profile user={user} />} />
+          <Route path='/movie/:id' element={<MovieDetails user={user} />} />
+          <Route path='/tv/:id' element={<TvDetails user={user} />} />
+          <Route path='/media' element={<Media />} />
+          <Route path='/genres' element={<Genre />} />
+          <Route path='/genres/:id' element={<GenreDetails />} />
         </Routes>
       </div>
     </>

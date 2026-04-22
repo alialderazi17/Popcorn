@@ -7,7 +7,7 @@ const Login = ({ setLoading, setUser }) => {
 
   const initialState = {
     email: '',
-    password: ''
+    password: '',
   }
 
   const [form, setForm] = useState(initialState)
@@ -29,19 +29,19 @@ const Login = ({ setLoading, setUser }) => {
     <div>
       <h2>Log in</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
+        <label htmlFor='email'>Email:</label>
         <input
-          type="text"
-          name="email"
+          type='text'
+          name='email'
           onChange={handleChange}
           value={form.email}
           required
         />
 
-        <label htmlFor="password">Password:</label>
+        <label htmlFor='password'>Password:</label>
         <input
-          type="password"
-          name="password"
+          type='password'
+          name='password'
           onChange={handleChange}
           value={form.password}
           required

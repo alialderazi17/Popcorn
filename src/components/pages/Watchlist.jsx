@@ -3,21 +3,20 @@ import { Link, useParams } from 'react-router-dom'
 import Client from '../services/api'
 
 const Watchlist = ({ user }) => {
-  const { id } = useParams() // Get ID if viewing someone else
-  const [list, setList] = useState(null)
-  const [loading, setLoading] = useState(true)
   const [editingItem, setEditingItem] = useState(null)
   const [editFormData, setEditFormData] = useState({
     status: '',
     userRating: '',
     description: '',
   })
+  const { id } = useParams()
+  const [list, setList] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  // Logic to determine which user's data to show
   const loggedInUserId =
     user?.id || user?._id || user?.user?.id || user?.user?._id
   const targetUserId = id || loggedInUserId
-  const isOwner = !id || id === loggedInUserId
+  const isOwner = loggedInUserId && (!id || id === loggedInUserId)
 
   const fetchUserList = async () => {
     try {
@@ -136,7 +135,6 @@ const Watchlist = ({ user }) => {
                     <p className='notes-preview'>"{item.description}"</p>
                   )}
 
-                  {/* ONLY show actions if the logged-in user owns this list */}
                   {isOwner && (
                     <div className='actions'>
                       <button

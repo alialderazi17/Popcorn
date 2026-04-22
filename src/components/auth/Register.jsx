@@ -9,7 +9,7 @@ const Register = () => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   }
 
   const [form, setForm] = useState(initialState)
@@ -28,37 +28,37 @@ const Register = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username: </label>
+        <label htmlFor='username'>Username: </label>
         <input
-          type="text"
-          name="username"
+          type='text'
+          name='username'
           onChange={handleChange}
           value={form.username}
           required
         />
 
-        <label htmlFor="email">Email:</label>
+        <label htmlFor='email'>Email:</label>
         <input
-          type="text"
-          name="email"
+          type='text'
+          name='email'
           onChange={handleChange}
           value={form.email}
           required
         />
 
-        <label htmlFor="password">Password:</label>
+        <label htmlFor='password'>Password:</label>
         <input
-          type="password"
-          name="password"
+          type='password'
+          name='password'
           onChange={handleChange}
           value={form.password}
           required
         />
 
-        <label htmlFor="confirmPassowrd">Confirm password:</label>
+        <label htmlFor='confirmPassowrd'>Confirm password:</label>
         <input
-          type="password"
-          name="confirmPassword"
+          type='password'
+          name='confirmPassword'
           onChange={handleChange}
           value={form.confirmPassword}
           required
