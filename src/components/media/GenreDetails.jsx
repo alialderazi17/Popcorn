@@ -36,7 +36,6 @@ const GenreDetails = () => {
         <h1>{genre.name}</h1>
         <p className="genre-description">{genre.description}</p>
 
-        {/* 3. Add the toggle buttons */}
         <div className="filter-buttons">
           <button
             className={filterType === "all" ? "active" : ""}
@@ -63,7 +62,6 @@ const GenreDetails = () => {
 
       <div className="media-container">
         <div className="media-grid">
-          {/* 4. Map over filteredMedia instead of genre.media */}
           {filteredMedia.length > 0 ? (
             filteredMedia.map((item) => (
               <Link
