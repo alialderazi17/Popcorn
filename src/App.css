@@ -9,7 +9,7 @@
 body {
   background-color: var(--popcorn-dark);
   color: var(--popcorn-white);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .update-pfp-page,
@@ -256,7 +256,7 @@ p {
 }
 
 .media-card img:after {
-  content: "🎬 Image Coming Soon";
+  content: '🎬 Image Coming Soon';
   display: flex;
   align-items: center;
   justify-content: center;
@@ -604,7 +604,7 @@ nav button {
 }
 .status-pill.completed {
   background: #00ff88;
-  color: #000;
+  color: #ccc;
 }
 .status-pill.plan-to-watch {
   background: #333;
