@@ -52,7 +52,6 @@ const MediaForm = ({ user, mediaId, initialData }) => {
 
       {showForm && (
         <>
-          /* Change MediaForm.jsx return statement to match Watchlist style */
           <div className="modal-content">
             <form onSubmit={handleSubmit} className="media-form">
               <h2>Add to List</h2>
