@@ -802,7 +802,6 @@ span {
   box-shadow: 0 0 15px rgba(0, 119, 255, 0.4);
 }
 
-/* Container and Layout */
 .home-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -810,7 +809,6 @@ span {
   text-align: center;
 }
 
-/* Hero Text Styling */
 .neon-title {
   font-size: 4rem;
   font-weight: 800;
@@ -838,7 +836,6 @@ span {
   line-height: 1.6;
 }
 
-/* Buttons */
 .hero-btns {
   display: flex;
   gap: 20px;
@@ -862,7 +859,6 @@ span {
   box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
 }
 
-/* Feature Cards */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -891,4 +887,63 @@ span {
 
 .feature-card .icon {
   font-size: 2.5rem;
+}
+
+.search-wrapper {
+  margin: 20px 0 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.neon-search {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 20px;
+
+  background-color: #1a1a1a;
+
+  border: 2px solid var(--popcorn-cyan);
+  border-radius: 50px;
+  color: white;
+  outline: none;
+  transition: 0.3s ease;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.neon-search:focus {
+  box-shadow: 0 0 15px var(--popcorn-cyan);
+  background-color: #222;
+}
+
+.neon-search::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+
+  align-items: start;
+}
+
+.media-card {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-card img {
+  width: 100%;
+
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: var(--popcorn-cyan);
 }
